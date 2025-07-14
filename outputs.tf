@@ -20,5 +20,5 @@ output "private_key" {
 
 output "ssh_command" {
   description = "SSH command to connect to the bastion servers"
-  value       = "ssh -i ~/.ssh/id_ed25519_bastion ec2-user@${module.bastions.public_ip[0]}"
+  value       = "ssh -i ~/.ssh/id_ed25519_bastion -F .ssh/config ec2-user@${module.bastions.hostnames[0]}"
 }
