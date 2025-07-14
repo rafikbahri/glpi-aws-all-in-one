@@ -4,6 +4,7 @@ variable "region" {
   description = "AWS region"
 }
 
+<<<<<<< HEAD
 variable "platform" {
   type        = string
   default     = "dev"
@@ -16,6 +17,8 @@ variable "ssh_user" {
   description = "SSH user for the bastion servers"
 }
 
+=======
+>>>>>>> f0cddb3 (feat: Use rafikbahri tf modules)
 variable "vpc_name" {
   type        = string
   default     = "glpi-vpc"
