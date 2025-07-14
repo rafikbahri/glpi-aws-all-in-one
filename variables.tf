@@ -4,6 +4,18 @@ variable "region" {
   description = "AWS region"
 }
 
+variable "platform" {
+  type        = string
+  default     = "dev"
+  description = "Deployment platform (dev, staging, prod)"
+}
+
+variable "ssh_user" {
+  type        = string
+  default     = "ec2-user"
+  description = "SSH user for the bastion servers"
+}
+
 variable "vpc_name" {
   type        = string
   default     = "glpi-vpc"
