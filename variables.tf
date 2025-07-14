@@ -17,8 +17,8 @@ variable "vpc_cidr" {
 }
 
 variable "bastion_servers_count" {
-  type        = string
-  default     = "1"
+  type        = number
+  default     = 1
   description = "Number of bastion servers"
 }
 
@@ -32,4 +32,16 @@ variable "create_key" {
   type        = bool
   default     = false
   description = "Create a new SSH key pair for the bastion servers"
+}
+
+variable "glpi_cluster_servers_count" {
+  type        = number
+  default     = 1
+  description = "Number of GLPI cluster servers"
+}
+
+variable "glpi_subnet_cidr" {
+  type        = string
+  default     = "10.0.16.0/24"
+  description = "CIDR block for the GLPI subnet"
 }

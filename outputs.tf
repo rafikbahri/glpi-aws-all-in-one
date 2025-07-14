@@ -8,6 +8,10 @@ output "bastions_private_ips" {
   value       = module.bastions.private_ips
 }
 
+output "glpi_private_ips" {
+  value = module.glpi-cluster.private_ips
+}
+
 output "private_key" {
   description = "Private key for SSH access to the bastion servers"
   value       = var.create_key ? module.bastions.private_key : null
