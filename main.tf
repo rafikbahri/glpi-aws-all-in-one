@@ -5,7 +5,7 @@ module "glpi-subnet" {
   availability_zone   = "eu-west-3a"
   cidr_block          = var.glpi_subnet_cidr
   public_subnet_id    = module.bastions-subnet.subnet_id
-  has_internet_access = true
+  has_internet_access = false
   tags = {
     kind  = "private"
     group = "glpi"
@@ -79,11 +79,13 @@ module "glpi-cluster" {
 }
 
 module "db-subnet-1" {
-  source            = "github.com/rafikbahri/tf-aws-private-subnet"
-  name              = "db-subnet-1"
-  vpc_id            = module.main-vpc.vpc_id
-  availability_zone = "eu-west-3a"
-  cidr_block        = var.db_subnet_1_cidr
+  source              = "github.com/rafikbahri/tf-aws-private-subnet"
+  name                = "db-subnet-1"
+  vpc_id              = module.main-vpc.vpc_id
+  availability_zone   = "eu-west-3a"
+  cidr_block          = var.db_subnet_1_cidr
+  public_subnet_id    = module.bastions-subnet.subnet_id
+  has_internet_access = false
   tags = {
     kind  = "private"
     group = "mariadb"
@@ -91,11 +93,13 @@ module "db-subnet-1" {
 }
 
 module "db-subnet-2" {
-  source            = "github.com/rafikbahri/tf-aws-private-subnet"
-  name              = "db-subnet-2"
-  vpc_id            = module.main-vpc.vpc_id
-  availability_zone = "eu-west-3b"
-  cidr_block        = var.db_subnet_2_cidr
+  source              = "github.com/rafikbahri/tf-aws-private-subnet"
+  name                = "db-subnet-2"
+  vpc_id              = module.main-vpc.vpc_id
+  availability_zone   = "eu-west-3b"
+  cidr_block          = var.db_subnet_2_cidr
+  public_subnet_id    = module.bastions-subnet.subnet_id
+  has_internet_access = false
   tags = {
     kind  = "private"
     group = "mariadb"
