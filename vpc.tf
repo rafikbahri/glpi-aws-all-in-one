@@ -36,7 +36,7 @@ module "sg-admin-bastions" {
       from_port   = 0
       to_port     = 0
       protocol    = "icmp"
-      cidr_blocks = ["192.168.0.0/16"]
+      cidr_blocks = [var.vpc_cidr]
       # Required attribues: https://stackoverflow.com/a/69080432/5684155
       ipv6_cidr_blocks = []
       prefix_list_ids  = []
@@ -84,7 +84,7 @@ module "sg-admin" {
       from_port   = -1
       to_port     = -1
       protocol    = "icmp"
-      cidr_blocks = ["192.168.0.0/16"]
+      cidr_blocks = [var.vpc_cidr]
       # Required attribues: https://stackoverflow.com/a/69080432/5684155
       ipv6_cidr_blocks = []
       prefix_list_ids  = []
