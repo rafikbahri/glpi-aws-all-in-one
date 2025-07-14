@@ -1,32 +1,84 @@
-module "bastions-subnet" {
-  source                         = "github.com/rafikbahri/tf-aws-public-subnet"
-  name                           = "bastion-subnet"
-  vpc_id                         = module.main-vpc.vpc_id
-  availability_zone              = "eu-west-3a"
-  cidr_block                     = var.bastions_subnet_cidr
-  map_public_ip_on_launch        = true
-  public_internet_route_table_id = module.main-vpc.public_internet_route_table_id
-  has_internet_access            = true
+
+resource "aws_subnet" "public" {
+  vpc_id                  = aws_vpc.main.id
+  cidr_block              = var.bastions_subnet_cidr
+  availability_zone       = data.aws_availability_zones.available.names[0]
+  map_public_ip_on_launch = true
+
   tags = {
-    group = "bastions"
+    Name = "bastion-subnet"
   }
 }
 
-module "bastions" {
-  source          = "github.com/rafikbahri/tf-aws-node"
-  server_count    = var.bastion_servers_count
-  server_prefix   = "bastion"
-  ami_id          = "ami-0546127e0cf2c6498"
-  instance_type   = "t2.micro"
-  vpc_id          = module.main-vpc.vpc_id
-  subnet_id       = module.bastions-subnet.subnet_id
-  private_ips     = [["10.0.15.11"], ["10.0.15.12"], ["10.0.15.13"]]
-  create_key      = false
-  security_groups = [module.sg-admin-bastions.sg_id, module.sg-admin.sg_id]
-  user_data_file  = ".config/cloudinit_user_data.yaml"
+resource "aws_route_table" "public" {
+  vpc_id = aws_vpc.main.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.main.id
+  }
+
   tags = {
-    purpose     = "bastion"
-    description = "Serves for SSH access"
-    component   = "infra"
+    Name = "bastion-public-rt"
+  }
+}
+
+resource "aws_route_table_association" "public" {
+  subnet_id      = aws_subnet.public.id
+  route_table_id = aws_route_table.public.id
+}
+
+resource "aws_security_group" "bastion" {
+  name        = "bastion-sg"
+  description = "Security group for bastion host"
+  vpc_id      = aws_vpc.main.id
+
+  ingress {
+    description = "SSH from allowed CIDR blocks"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = var.allowed_cidr_blocks
+  }
+
+  egress {
+    description = "All outbound traffic"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "bastion-sg"
+  }
+}
+
+resource "aws_key_pair" "bastion" {
+  key_name   = "bastion-key"
+  public_key = file("~/.ssh/id_ed25519_bastion.pub")
+
+  tags = {
+    Name = "bastion-key"
+  }
+}
+
+resource "aws_instance" "bastion" {
+  ami                    = data.aws_ami.amazon_linux.id
+  instance_type          = "t3.micro"
+  key_name               = aws_key_pair.bastion.key_name
+  vpc_security_group_ids = [aws_security_group.bastion.id]
+  subnet_id              = aws_subnet.public.id
+
+  user_data = <<-EOF
+              #!/bin/bash
+              yum update -y
+              # Configure SSH for agent forwarding
+              echo "AllowAgentForwarding yes" >> /etc/ssh/sshd_config
+              systemctl restart sshd
+              EOF
+
+  tags = {
+    Name = "bastion-host"
   }
 }
