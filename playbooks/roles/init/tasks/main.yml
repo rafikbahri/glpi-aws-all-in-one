@@ -1,0 +1,9 @@
+---
+- name: Users
+  ansible.builtin.include_tasks: user.yml
+  loop: "{{ users }}"
+  loop_control:
+    loop_var: init_user
+
+- name: Hosts
+  ansible.builtin.import_tasks: hosts.yml
