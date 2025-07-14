@@ -1,0 +1,9 @@
+---
+users:
+  - name: rbahri
+    group: adm
+    shell: /bin/bash
+    create_home: true
+    state: present
+    authorized_keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFb4AloR5UZKuVKDDjVlAeMxj+A9e0Pkw6XU/izk6kP/ rbahri@Rafiks-MacBook-Pro.local

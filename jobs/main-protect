@@ -1,0 +1,14 @@
+#!/bin/zsh
+
+set -euxo pipefail
+
+gh auth status
+
+# Set the repository (owner/repo)
+REPO="rafikbahri/aws-infra"
+
+# Main branch protection
+gh api --method PUT "repos/${REPO}/branches/main/protection" --input .config/main-branch-rules.json
+
+# Verify 
+gh api "repos/${REPO}/branches/main/protection"

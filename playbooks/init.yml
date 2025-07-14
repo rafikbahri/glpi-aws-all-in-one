@@ -1,0 +1,15 @@
+---
+- name: Initialize
+  hosts: all
+  become: true
+  gather_facts: false
+  pre_tasks:
+    - name: Wait for target connection to become reachable/usable
+      ansible.builtin.wait_for_connection:
+        connect_timeout: 10
+        delay: 5
+        timeout: 60
+      retries: 3
+
+  roles:
+    - role: init
