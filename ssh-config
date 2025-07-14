@@ -1,0 +1,10 @@
+Host bastion
+    HostName 35.181.6.122
+    User ec2-user
+    IdentityFile ~/.ssh/id_ed25519_bastion
+
+Host glpi
+    HostName 10.0.16.238
+    User ec2-user
+    IdentityFile ~/.ssh/id_ed25519_bastion
+    ProxyJump bastion
