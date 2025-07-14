@@ -45,3 +45,28 @@ variable "glpi_subnet_cidr" {
   default     = "10.0.16.0/24"
   description = "CIDR block for the GLPI subnet"
 }
+
+
+variable "db_subnet_1_cidr" {
+  type        = string
+  default     = "10.0.17.0/24"
+  description = "CIDR block for the first DB subnet"
+}
+
+variable "db_subnet_2_cidr" {
+  type        = string
+  default     = "10.0.18.0/24"
+  description = "CIDR block for the second DB subnet"
+}
+
+variable "glpi_db_username" {
+  type        = string
+  default     = "glpi_user"
+  description = "Username for the GLPI database"
+}
+
+variable "glpi_db_password" {
+  type        = string
+  default     = "glpi_password"
+  description = "Password for the GLPI database"
+}
