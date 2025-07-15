@@ -51,3 +51,8 @@ output "private_subnet_id" {
   description = "ID of the private subnet"
   value       = aws_subnet.private.id
 }
+
+output "ami_id" {
+  description = "AMI ID used for the EC2 instances"
+  value       = data.aws_ami.amazon_linux_2.id
+}
