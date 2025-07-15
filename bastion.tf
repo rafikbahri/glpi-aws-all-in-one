@@ -64,7 +64,7 @@ resource "aws_key_pair" "bastion" {
 }
 
 resource "aws_instance" "bastion" {
-  ami                    = data.aws_ami.amazon_linux_2.id
+  ami                    = data.aws_ami.ubuntu.id
   instance_type          = "t3.micro"
   key_name               = aws_key_pair.bastion.key_name
   vpc_security_group_ids = [aws_security_group.bastion.id]
@@ -72,10 +72,10 @@ resource "aws_instance" "bastion" {
 
   user_data = <<-EOF
               #!/bin/bash
-              yum update -y
+              apt update -y
               # Configure SSH for agent forwarding
               echo "AllowAgentForwarding yes" >> /etc/ssh/sshd_config
-              systemctl restart sshd
+              systemctl restart ssh
               EOF
 
   tags = {

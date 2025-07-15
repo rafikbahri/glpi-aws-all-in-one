@@ -2,7 +2,7 @@
 
 Host bastion001
     HostName ${bastion_public_ip_1}
-    User ec2-user
+    User ubuntu
     IdentityFile ${ssh_key_path}
     ForwardAgent yes
     ServerAliveInterval 60
@@ -10,7 +10,7 @@ Host bastion001
 
 Host glpi001
     HostName ${glpi_private_1}
-    User ec2-user
+    User ubuntu
     IdentityFile ${ssh_key_path}
     ProxyJump bastion001
     ServerAliveInterval 60

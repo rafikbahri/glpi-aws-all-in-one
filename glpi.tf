@@ -63,7 +63,7 @@ resource "aws_security_group" "private" {
 
 
 resource "aws_instance" "glpi_instance" {
-  ami                    = data.aws_ami.amazon_linux_2.id # Problematic "ami-00983e8a26e4c9bd9" # Ubuntu 22.04 LTS in eu-west-3
+  ami                    = data.aws_ami.ubuntu.id
   instance_type          = "t3.micro"
   key_name               = aws_key_pair.bastion.key_name
   vpc_security_group_ids = [aws_security_group.private.id]
@@ -71,7 +71,7 @@ resource "aws_instance" "glpi_instance" {
 
   user_data = <<-EOF
               #!/bin/bash
-              yum update -y
+              apt update -y
               EOF
 
   tags = {
