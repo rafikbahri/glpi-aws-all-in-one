@@ -1,0 +1,20 @@
+---
+- name: Update apt cache
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600
+
+- name: Upgrade all packages
+  ansible.builtin.apt:
+    upgrade: true
+
+- name: Install Apache2
+  ansible.builtin.apt:
+    name: apache2
+    state: present
+
+- name: Ensure Apache is running and enabled
+  ansible.builtin.service:
+    name: apache2
+    state: started
+    enabled: true

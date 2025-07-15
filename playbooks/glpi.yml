@@ -1,6 +1,6 @@
 ---
-- name: Initialize
-  hosts: all
+- name: Setup GLPI
+  hosts: glpi
   become: true
   gather_facts: false
   pre_tasks:
@@ -11,4 +11,6 @@
       retries: 3
 
   roles:
-    - role: init
+    - role: php
+    - role: apache2
+    - role: glpi
