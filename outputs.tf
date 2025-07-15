@@ -16,8 +16,8 @@ output "glpi_private_ip" {
 output "ssh_commands" {
   description = "SSH commands to access instances"
   value = {
-    bastion   = "ssh -i ~/.ssh/id_ed25519_bastion ec2-user@${aws_instance.bastion.public_ip}"
-    glpi_jump = "ssh -i ~/.ssh/id_ed25519_bastion -J ec2-user@${aws_instance.bastion.public_ip} ec2-user@${aws_instance.glpi_instance.private_ip}"
+    bastion   = "ssh -i ~/.ssh/id_ed25519_bastion ubuntu@${aws_instance.bastion.public_ip}"
+    glpi_jump = "ssh -i ~/.ssh/id_ed25519_bastion -J ubuntu@${aws_instance.bastion.public_ip} ubuntu@${aws_instance.glpi_instance.private_ip}"
   }
 }
 
@@ -26,12 +26,12 @@ output "ssh_config" {
   value       = <<-EOF
 Host bastion
     HostName ${aws_instance.bastion.public_ip}
-    User ec2-user
+    User ubuntu
     IdentityFile ~/.ssh/id_ed25519_bastion
 
 Host glpi
     HostName ${aws_instance.glpi_instance.private_ip}
-    User ec2-user
+    User ubuntu
     IdentityFile ~/.ssh/id_ed25519_bastion
     ProxyJump bastion
 EOF
@@ -54,5 +54,5 @@ output "private_subnet_id" {
 
 output "ami_id" {
   description = "AMI ID used for the EC2 instances"
-  value       = data.aws_ami.amazon_linux_2.id
+  value       = data.aws_ami.ubuntu.id
 }

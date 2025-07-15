@@ -12,7 +12,7 @@ variable "platform" {
 
 variable "ssh_user" {
   type        = string
-  default     = "ec2-user"
+  default     = "ubuntu"
   description = "SSH user for the bastion servers"
 }
 
