@@ -70,6 +70,6 @@ resource "aws_instance" "glpi_instance" {
               EOF
 
   tags = {
-    Name = "glpi-instance1"
+    Name = "glpi001"
   }
 }
