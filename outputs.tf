@@ -56,3 +56,8 @@ output "ami_id" {
   description = "AMI ID used for the EC2 instances"
   value       = data.aws_ami.ubuntu.id
 }
+
+output "alb_dns_name" {
+  description = "The DNS name of the load balancer"
+  value       = aws_lb.glpi_alb.dns_name
+}

@@ -69,7 +69,7 @@
     owner: root
     group: root
     mode: '0644'
-  notify: restart apache2
+  notify: Restart apache2
 
 - name: Cleanup - delete install.php
   file:

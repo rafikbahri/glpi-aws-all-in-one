@@ -71,6 +71,18 @@ variable "db_subnet_2_cidr" {
   description = "CIDR block for the second DB subnet"
 }
 
+variable "alb_subnet_1_cidr" {
+  type        = string
+  default     = "10.0.21.0/24"
+  description = "CIDR block for the first ALB subnet"
+}
+
+variable "alb_subnet_2_cidr" {
+  type        = string
+  default     = "10.0.22.0/24"
+  description = "CIDR block for the second ALB subnet"
+}
+
 variable "glpi_db_username" {
   type        = string
   default     = "glpi_user"
