@@ -96,7 +96,7 @@ resource "aws_instance" "glpi_instance" {
   ami                    = data.aws_ami.ubuntu.id
   instance_type          = "t3.micro"
   key_name               = aws_key_pair.bastion.key_name
-  vpc_security_group_ids = [aws_security_group.private.id]
+  vpc_security_group_ids = [aws_security_group.private.id, aws_security_group.glpi_ec2_sg.id]
   subnet_id              = aws_subnet.private.id
 
   user_data = <<-EOF

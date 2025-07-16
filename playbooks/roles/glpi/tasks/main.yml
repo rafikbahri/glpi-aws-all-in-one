@@ -1,6 +1,6 @@
 ---
 - name: Ensure required directories exist
-  file:
+  ansible.builtin.file:
     path: "{{ item }}"
     state: directory
     owner: www-data
@@ -12,13 +12,13 @@
     - /var/log/glpi
 
 - name: Download GLPI archive
-  get_url:
+  ansible.builtin.get_url:
     url: "https://github.com/glpi-project/glpi/releases/download/{{ glpi_version }}/glpi-{{ glpi_version }}.tgz"
     dest: "/tmp/glpi-{{ glpi_version }}.tgz"
   register: download_result
 
 - name: Extract GLPI archive to web directory
-  unarchive:
+  ansible.builtin.unarchive:
     src: "/tmp/glpi-{{ glpi_version }}.tgz"
     dest: /var/www/html
     remote_src: yes
@@ -27,7 +27,7 @@
   when: download_result.changed
 
 - name: Create downstream.php
-  template:
+  ansible.builtin.template:
     src: downstream.php.j2
     dest: /var/www/html/glpi/inc/downstream.php
     owner: root
@@ -35,7 +35,7 @@
     mode: '0644'
 
 - name: Create local_define.php
-  template:
+  ansible.builtin.template:
     src: local_define.php.j2
     dest: /var/www/html/glpi/config/local_define.php
     owner: root
@@ -53,9 +53,9 @@
     - { src: '/var/www/html/glpi/config/', dest: '/etc/glpi' }
     - { src: '/var/www/html/glpi/files/', dest: '/var/lib/glpi' }
     - { src: '/var/lib/glpi/_log/', dest: '/var/log/glpi' }
-    
+
 - name: Change ownership of marketplace directory
-  file:
+  ansible.builtin.file:
     path: /var/www/html/glpi/marketplace
     owner: www-data
     group: www-data
@@ -63,7 +63,7 @@
     recurse: yes
 
 - name: Apache2 configuration for GLPI
-  template:
+  ansible.builtin.template:
     src: glpi.conf.j2
     dest: /etc/apache2/sites-available/glpi.conf
     owner: root
@@ -72,6 +72,6 @@
   notify: Restart apache2
 
 - name: Cleanup - delete install.php
-  file:
+  ansible.builtin.file:
     path: /var/www/html/glpi/install/install.php
     state: absent
