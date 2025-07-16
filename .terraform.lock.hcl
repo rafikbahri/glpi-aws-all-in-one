@@ -42,7 +42,6 @@ provider "registry.terraform.io/hashicorp/local" {
     "zh:f4c6b3eb8f39105004cf720e202f04f57e3578441cfb76ca27611139bc116a82",
   ]
 }
-
 provider "registry.terraform.io/hashicorp/tls" {
   version = "4.1.0"
   hashes = [
@@ -61,3 +60,4 @@ provider "registry.terraform.io/hashicorp/tls" {
     "zh:fb07f708e3316615f6d218cec198504984c0ce7000b9f1eebff7516e384f4b54",
   ]
 }
+

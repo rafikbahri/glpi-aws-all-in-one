@@ -32,6 +32,7 @@ Host bastion
 Host glpi
     HostName ${aws_instance.glpi_instance.private_ip}
     User ubuntu
+    User ec2-user
     IdentityFile ~/.ssh/id_ed25519_bastion
     ProxyJump bastion
 EOF
