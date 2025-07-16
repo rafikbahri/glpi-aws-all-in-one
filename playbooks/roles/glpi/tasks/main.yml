@@ -15,16 +15,16 @@
   ansible.builtin.get_url:
     url: "https://github.com/glpi-project/glpi/releases/download/{{ glpi_version }}/glpi-{{ glpi_version }}.tgz"
     dest: "/tmp/glpi-{{ glpi_version }}.tgz"
+    mode: '0644'
   register: download_result
 
 - name: Extract GLPI archive to web directory
   ansible.builtin.unarchive:
     src: "/tmp/glpi-{{ glpi_version }}.tgz"
     dest: /var/www/html
-    remote_src: yes
+    remote_src: true
     owner: root
     group: root
-  when: download_result.changed
 
 - name: Create downstream.php
   ansible.builtin.template:
@@ -44,11 +44,12 @@
 
 - name: Move GLPI files to configured directories
   ansible.builtin.copy:
-    remote_src: yes
+    remote_src: true
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
     owner: www-data
     group: www-data
+    mode: '0755'
   loop:
     - { src: '/var/www/html/glpi/config/', dest: '/etc/glpi' }
     - { src: '/var/www/html/glpi/files/', dest: '/var/lib/glpi' }
@@ -60,7 +61,7 @@
     owner: www-data
     group: www-data
     state: directory
-    recurse: yes
+    recurse: true
 
 - name: Apache2 configuration for GLPI
   ansible.builtin.template:
@@ -71,7 +72,16 @@
     mode: '0644'
   notify: Restart apache2
 
-- name: Cleanup - delete install.php
-  ansible.builtin.file:
-    path: /var/www/html/glpi/install/install.php
-    state: absent
+- name: Disable default apache site
+  ansible.builtin.command: a2dissite 000-default.conf
+  changed_when: false
+
+- name: Enable rewrite module
+  ansible.builtin.apache2_module:
+    name: rewrite
+    state: present
+
+- name: Enable GLPI site
+  ansible.builtin.command: a2ensite glpi.conf
+  changed_when: false
+
