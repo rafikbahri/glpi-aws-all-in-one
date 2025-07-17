@@ -12,4 +12,3 @@ ansible-playbook $@ -u $SSH_INIT_USER playbooks/init.yml
 
 # Setup GLPI
 ansible-playbook $@ playbooks/glpi.yml
-

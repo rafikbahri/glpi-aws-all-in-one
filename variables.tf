@@ -98,5 +98,5 @@ variable "glpi_db_password" {
 variable "allowed_cidr_blocks" {
   description = "CIDR blocks allowed to access bastion host"
   type        = list(string)
-  default     = ["88.178.215.32/32"] # Replace with your own IP or CIDR block
+  default     = ["0.0.0.0/0"] # Replace with your own IP or CIDR block
 }
