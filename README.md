@@ -15,9 +15,14 @@ Dev
 - [ ] Add volumes sizing values for dev, prod, etc.
 - [ ] Fix changed tasks in Ansible playbooks
 - [ ] Add Ansible test playbooks
+- [ ] Fix idempotency issues in Ansible playbooks
 - [ ] Add more documentation
 
 CI
 
 - [ ] Add CI: ansible-lint, markdownlint, tflint, etc.
 - [ ] Add CD: deploy terraform to dev, run ansible, etc.
+
+Generic
+
+- [ ] Make the role more generic: works with external DB, as well as internal MariaDB/MySQL, etc.

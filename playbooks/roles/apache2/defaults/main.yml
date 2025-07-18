@@ -1,5 +1,0 @@
----
-apache2_port: 80
-apache2_server_admin: webmaster@localhost
-apache2_server_name: localhost
-apache2_document_root: /var/www/html

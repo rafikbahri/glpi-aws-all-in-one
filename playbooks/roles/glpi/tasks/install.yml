@@ -1,0 +1,21 @@
+---
+- name: Install using CLI
+  ansible.builtin.command: |
+    sudo bin/console db:install --no-interaction \
+    --db-host={{ glpi_db_host }} \
+    --db-name={{ glpi_db_name }} \
+    --db-user={{ glpi_db_user }} \
+    --db-password={{ glpi_db_password }} \
+    --db-port={{ glpi_db_port }} \
+    --reconfigure \
+    --force \
+    --no-telemetry
+  args:
+    chdir: /var/www/html/glpi
+  changed_when: false
+  register: glpi_install_result
+
+- name: Check installation result
+  ansible.builtin.debug:
+    msg: "GLPI installation completed successfully."
+  when: glpi_install_result.rc == 0

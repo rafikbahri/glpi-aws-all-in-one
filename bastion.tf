@@ -72,7 +72,7 @@ resource "aws_instance" "bastion" {
 
   user_data = <<-EOF
               #!/bin/bash
-              apt update -y
+              apt update -y && apt upgrade -y
               # Configure SSH for agent forwarding
               echo "AllowAgentForwarding yes" >> /etc/ssh/sshd_config
               systemctl restart ssh
