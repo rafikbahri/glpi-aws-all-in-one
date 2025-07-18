@@ -1,3 +1,10 @@
 ---
-glpi_version: "10.0.18"
-glpi_domain: glpi-alb-919386645.eu-west-3.elb.amazonaws.com # ALB DNS
+glpi_version: "10.0.19"
+glpi_domain: localhost
+glpi_timzone: Europe/Paris
+glpi_upload_max_filesize: "20M"
+glpi_post_max_size: "20M"
+glpi_max_execution_time: 60
+glpi_memory_limit: "256M"
+glpi_max_input_vars: 5000
+glpi_session_cookie_httponly: "On"
