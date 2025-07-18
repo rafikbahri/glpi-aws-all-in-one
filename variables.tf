@@ -100,3 +100,39 @@ variable "allowed_cidr_blocks" {
   type        = list(string)
   default     = ["88.178.215.32/32"] # Replace with your own IP or CIDR block
 }
+
+variable "glpi_data_ebs_volume_size" {
+  type        = number
+  default     = 20
+  description = "Size of the GLPI data EBS volume"
+}
+
+variable "glpi_data_ebs_volume_type" {
+  type        = string
+  default     = "gp2"
+  description = "Type of the GLPI data EBS volume"
+}
+
+variable "glpi_config_ebs_volume_size" {
+  type        = number
+  default     = 5
+  description = "Size of the GLPI config EBS volume"
+}
+
+variable "glpi_config_ebs_volume_type" {
+  type        = string
+  default     = "gp2"
+  description = "Type of the GLPI config EBS volume"
+}
+
+variable "glpi_logs_ebs_volume_size" {
+  type        = number
+  default     = 10
+  description = "Size of the GLPI logs EBS volume"
+}
+
+variable "glpi_logs_ebs_volume_type" {
+  type        = string
+  default     = "gp2"
+  description = "Type of the GLPI logs EBS volume"
+}
