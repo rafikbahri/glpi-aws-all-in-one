@@ -1,7 +1,7 @@
 resource "aws_ebs_volume" "glpi_config" {
   availability_zone = data.aws_availability_zones.available.names[0]
-  size              = 5
-  type              = "gp2"
+  size              = var.glpi_config_ebs_volume_size
+  type              = var.glpi_config_ebs_volume_type
   encrypted         = true
 
   tags = {
@@ -13,8 +13,8 @@ resource "aws_ebs_volume" "glpi_config" {
 
 resource "aws_ebs_volume" "glpi_data" {
   availability_zone = data.aws_availability_zones.available.names[0]
-  size              = 20
-  type              = "gp2"
+  size              = var.glpi_data_ebs_volume_size
+  type              = var.glpi_data_ebs_volume_type
   encrypted         = true
 
   tags = {
@@ -26,8 +26,8 @@ resource "aws_ebs_volume" "glpi_data" {
 
 resource "aws_ebs_volume" "glpi_logs" {
   availability_zone = data.aws_availability_zones.available.names[0]
-  size              = 20
-  type              = "gp2"
+  size              = var.glpi_logs_ebs_volume_size
+  type              = var.glpi_logs_ebs_volume_type
   encrypted         = true
 
   tags = {
