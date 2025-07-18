@@ -1,12 +1,12 @@
 ---
 glpi_version: "10.0.19"
-glpi_domain: localhost
-glpi_db_host: localhost
-glpi_db_name: glpi
-glpi_db_user: glpi
+glpi_domain: "glpi-alb-1064790592.eu-west-3.elb.amazonaws.com"
+glpi_db_host: "glpi-db.cly8eoseg8e5.eu-west-3.rds.amazonaws.com"
 glpi_db_port: 3306
-glpi_db_password: glpi
-glpi_timzone: Europe/Paris
+glpi_db_name: "glpi"
+glpi_db_user: "glpi_user"
+glpi_db_password: "glpi_password"
+glpi_timezone: "Europe/Paris"
 glpi_upload_max_filesize: "20M"
 glpi_post_max_size: "20M"
 glpi_max_execution_time: 60

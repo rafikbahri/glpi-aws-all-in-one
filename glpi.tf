@@ -101,7 +101,7 @@ resource "aws_instance" "glpi_instance" {
 
   user_data = <<-EOF
               #!/bin/bash
-              apt update -y
+              apt update -y && apt upgrade -y
               EOF
 
   tags = {
