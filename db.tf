@@ -1,4 +1,3 @@
-# Multi-AZ RDS instance
 resource "aws_subnet" "glpi_db_private_subnet_1" {
   vpc_id            = aws_vpc.main.id
   cidr_block        = var.db_subnet_1_cidr
@@ -19,7 +18,6 @@ resource "aws_subnet" "glpi_db_private_subnet_2" {
   }
 }
 
-# Database Subnet Group for RDS
 resource "aws_db_subnet_group" "glpi_db_subnet_group" {
   name       = "glpi-db-subnet-group"
   subnet_ids = [aws_subnet.glpi_db_private_subnet_1.id, aws_subnet.glpi_db_private_subnet_2.id]
@@ -29,7 +27,6 @@ resource "aws_db_subnet_group" "glpi_db_subnet_group" {
   }
 }
 
-# Security Group for RDS
 resource "aws_security_group" "glpi_rds_sg" {
   name        = "glpi-rds-sg"
   description = "Security group for GLPI RDS instance"
@@ -47,10 +44,9 @@ resource "aws_security_group" "glpi_rds_sg" {
   }
 }
 
-# RDS Instance
 resource "aws_db_instance" "glpi_db" {
   allocated_storage      = 20
-  max_allocated_storage  = 100 # For auto-scaling
+  max_allocated_storage  = 100
   storage_type           = "gp3"
   engine                 = "mysql"
   engine_version         = "8.0"
