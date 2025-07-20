@@ -4,10 +4,16 @@ All in one solution to install and configure GLPI on AWS.
 
 ## Todo
 
+Critical
+
+- [ ] Choose between making first setup manual or automatic
+- [ ] Refactor install.yml to take in consideration upgrade scenarios
+
 Infra
 
 - [ ] Add DLM backups for EBS volumes
 - [ ] Add RDS backups
+- [ ] Use S3 lock files for Terraform state instead of DynamoDB locking mechanism
 
 Dev
 
