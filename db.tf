@@ -45,9 +45,9 @@ resource "aws_security_group" "glpi_rds_sg" {
 }
 
 resource "aws_db_instance" "glpi_db" {
-  allocated_storage      = 20
-  max_allocated_storage  = 100
-  storage_type           = "gp3"
+  allocated_storage      = var.db_allocated_storage_size
+  max_allocated_storage  = var.db_storage_auto_scaling_max_size
+  storage_type           = var.db_storage_type
   engine                 = "mysql"
   engine_version         = "8.0"
   instance_class         = "db.t3.medium"
