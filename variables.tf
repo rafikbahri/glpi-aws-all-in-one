@@ -136,3 +136,21 @@ variable "glpi_logs_ebs_volume_type" {
   default     = "gp2"
   description = "Type of the GLPI logs EBS volume"
 }
+
+variable "db_allocated_storage_size" {
+  type        = number
+  default     = 20
+  description = "Storage size for the GLPI database"
+}
+
+variable "db_storage_auto_scaling_max_size" {
+  type        = number
+  default     = 50
+  description = "Maximum storage size for auto-scaling the GLPI database"
+}
+
+variable "db_storage_type" {
+  type        = string
+  default     = "gp3"
+  description = "Storage type for the GLPI database"
+}

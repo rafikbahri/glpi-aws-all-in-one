@@ -1,7 +1,8 @@
 ---
 - name: Install using CLI
+  become: true
   ansible.builtin.command: |
-    sudo bin/console db:install --no-interaction \
+    bin/console db:install --no-interaction \
     --db-host={{ glpi_db_host }} \
     --db-name={{ glpi_db_name }} \
     --db-user={{ glpi_db_user }} \
