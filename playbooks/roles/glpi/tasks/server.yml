@@ -1,21 +1,15 @@
 ---
-- name: Ensure required directories exist
-  ansible.builtin.file:
-    path: "{{ item }}"
-    state: directory
-    owner: www-data
-    group: www-data
-    mode: '0755'
-  loop:
-    - /etc/glpi
-    - /var/lib/glpi
-    - /var/log/glpi
+- name: Check if GLPI package exists
+  ansible.builtin.stat:
+    path: "/tmp/glpi-{{ glpi_version }}.tgz"
+  register: glpi_package
 
 - name: Download official archive
   ansible.builtin.get_url:
     url: "https://github.com/glpi-project/glpi/releases/download/{{ glpi_version }}/glpi-{{ glpi_version }}.tgz"
     dest: "/tmp/glpi-{{ glpi_version }}.tgz"
     mode: '0644'
+  when: not glpi_package.stat.exists
 
 - name: Extract archive to web directory
   ansible.builtin.unarchive:
@@ -24,6 +18,7 @@
     remote_src: true
     owner: root
     group: root
+  when: not glpi_package.stat.exists
 
 - name: Create downstream.php
   ansible.builtin.template:

@@ -17,9 +17,8 @@ Infra
 
 Dev
 
-- [ ] Add tfenvs for dev, prod, etc.
-- [ ] Add volumes sizing values for dev, prod, etc.
-- [ ] Fix changed tasks in Ansible playbooks
+- [x] Add tfvars for dev, prod, etc.
+- [x] Add volumes sizing values for dev, prod, etc.
 - [ ] Add Ansible test playbooks
 - [ ] Fix idempotency issues in Ansible playbooks
 - [ ] Add more documentation
