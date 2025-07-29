@@ -1,7 +1,6 @@
 ---
 - name: Setup GLPI
   hosts: glpi
-  become: true
   gather_facts: false
 
   roles:

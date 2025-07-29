@@ -1,5 +1,6 @@
 ---
 - name: Create filesystems
+  become: true
   community.general.filesystem:
     fstype: ext4
     dev: "{{ item.device }}"
@@ -10,6 +11,7 @@
     - { device: '/dev/nvme3n1', label: 'glpi-logs' }
 
 - name: Create mount points for volumes
+  become: true
   ansible.builtin.file:
     path: "{{ item }}"
     state: directory
@@ -20,6 +22,7 @@
     - /mnt/glpi-logs
 
 - name: Mount filesystems to directories
+  become: true
   ansible.posix.mount:
     path: "{{ item.path }}"
     src: "{{ item.src }}"
@@ -34,6 +37,7 @@
     - { path: '/mnt/glpi-logs', src: '/dev/nvme3n1' }
 
 - name: Set ownership for volumes
+  become: true
   ansible.builtin.file:
     path: "{{ item }}"
     owner: www-data
@@ -46,6 +50,7 @@
     - /mnt/glpi-logs
 
 - name: Create directories as symlinks to volumes
+  become: true
   ansible.builtin.file:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"

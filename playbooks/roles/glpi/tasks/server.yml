@@ -12,6 +12,7 @@
   when: not glpi_package.stat.exists
 
 - name: Extract archive to web directory
+  become: true
   ansible.builtin.unarchive:
     src: "/tmp/glpi-{{ glpi_version }}.tgz"
     dest: /var/www/html
@@ -21,6 +22,7 @@
   when: not glpi_package.stat.exists
 
 - name: Create downstream.php
+  become: true
   ansible.builtin.template:
     src: downstream.php.j2
     dest: /var/www/html/glpi/inc/downstream.php
@@ -29,6 +31,7 @@
     mode: '0644'
 
 - name: Create local_define.php
+  become: true
   ansible.builtin.template:
     src: local_define.php.j2
     dest: /var/www/html/glpi/config/local_define.php
@@ -37,6 +40,7 @@
     mode: '0644'
 
 - name: Move files to configured directories
+  become: true
   ansible.builtin.copy:
     remote_src: true
     src: "{{ item.src }}"
@@ -50,6 +54,7 @@
     - { src: '/var/lib/glpi/_log/', dest: '/var/log/glpi' }
 
 - name: Change ownership of marketplace directory
+  become: true
   ansible.builtin.file:
     path: /var/www/html/glpi/marketplace
     owner: www-data
@@ -58,6 +63,7 @@
     recurse: true
 
 - name: Configure webserver site
+  become: true
   ansible.builtin.template:
     src: glpi.conf.j2
     dest: /etc/apache2/sites-available/glpi.conf
@@ -67,19 +73,23 @@
   notify: Restart webserver
 
 - name: Disable default site
+  become: true
   ansible.builtin.command: a2dissite 000-default.conf
   changed_when: false
 
 - name: Enable rewrite
+  become: true
   ansible.builtin.apache2_module:
     name: rewrite
     state: present
 
 - name: Enable GLPI site
+  become: true
   ansible.builtin.command: a2ensite glpi.conf
   changed_when: false
 
 - name: Configure PHP settings
+  become: true
   ansible.builtin.lineinfile:
     path: /etc/php/8.1/apache2/php.ini
     regexp: "{{ item.regexp }}"
