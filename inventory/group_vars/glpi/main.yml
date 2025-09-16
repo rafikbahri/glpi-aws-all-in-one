@@ -1,6 +1,6 @@
 ---
 glpi_version: "10.0.19"
-glpi_domain: "glpi-alb-1064790592.eu-west-3.elb.amazonaws.com"
+glpi_domain: "glpi-alb-2032728420.eu-west-3.elb.amazonaws.com"
 glpi_db_host: "glpi-db.cly8eoseg8e5.eu-west-3.rds.amazonaws.com"
 glpi_db_port: 3306
 glpi_db_name: "glpi"

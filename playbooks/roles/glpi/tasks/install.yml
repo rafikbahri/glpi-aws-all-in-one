@@ -15,4 +15,3 @@
     chdir: /var/www/html/glpi
   changed_when: false
   register: glpi_install_result
-

@@ -2,6 +2,6 @@
 - name: Setup GLPI
   hosts: glpi
   gather_facts: false
-
+  become: true
   roles:
-    - role: glpi
+    - role: rafikbahri.glpi
