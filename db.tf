@@ -52,7 +52,7 @@ resource "aws_db_instance" "glpi_db" {
   engine_version         = "8.0"
   instance_class         = "db.t3.medium"
   identifier             = "glpi-db"
-  db_name                = "glpi"
+  db_name                = var.glpi_db_name
   username               = var.glpi_db_username
   password               = var.glpi_db_password
   parameter_group_name   = "default.mysql8.0"

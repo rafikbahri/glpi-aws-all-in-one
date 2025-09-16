@@ -83,9 +83,15 @@ variable "alb_subnet_2_cidr" {
   description = "CIDR block for the second ALB subnet"
 }
 
+variable "glpi_db_name" {
+  type        = string
+  default     = "glpi"
+  description = "Username for the GLPI database"
+}
+
 variable "glpi_db_username" {
   type        = string
-  default     = "glpi_user"
+  default     = "glpi"
   description = "Username for the GLPI database"
 }
 
