@@ -1,0 +1,7 @@
+# Terraform managed
+---
+glpi_domain: "glpi-alb-1732762553.eu-west-3.elb.amazonaws.com"
+# problem with apache2 
+# Sep 17 15:24:25 ip-10-0-16-17 systemd[1]: Starting The Apache HTTP Server...
+# Sep 17 15:24:25 ip-10-0-16-17 apachectl[39244]: AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 10.0.16.17. Set the 'ServerName' directive g>
+# Sep 17 15:24:25 ip-10-0-16-17 systemd[1]: Started The Apache HTTP Server

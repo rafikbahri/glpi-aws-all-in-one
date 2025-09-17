@@ -63,7 +63,7 @@ output "alb_dns_name" {
   value       = aws_lb.glpi_alb.dns_name
 }
 
-output "glpi_db_endpoint" {
-  description = "Endpoint of the GLPI RDS database"
-  value       = aws_db_instance.glpi_db.endpoint
+output "glpi_db_address" {
+  description = "Hostname of the GLPI RDS database"
+  value       = aws_db_instance.glpi_db.address
 }

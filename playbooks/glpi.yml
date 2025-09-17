@@ -4,4 +4,4 @@
   gather_facts: false
   become: true
   roles:
-    - role: rafikbahri.glpi
+    - role: /Users/rbahri/Desktop/all/Perso/projects/ansible-role-glpi

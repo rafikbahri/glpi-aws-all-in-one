@@ -33,14 +33,23 @@ etc_hosts:
 EOT
 }
 
-resource "local_file" "glpi_config" {
-  filename        = "inventory/group_vars/glpi/config.yml"
+resource "local_file" "glpi_domain_config" {
+  filename        = "inventory/group_vars/glpi/domain.yml"
   file_permission = "0644"
   content         = <<EOT
 # Terraform managed
 ---
 glpi_domain: "${aws_lb.glpi_alb.dns_name}"
-glpi_db_host: "${aws_db_instance.glpi_db.endpoint}"
+EOT
+}
+
+resource "local_file" "glpi_db_config" {
+  filename        = "inventory/group_vars/glpi/db.yml"
+  file_permission = "0644"
+  content         = <<EOT
+# Terraform managed
+---
+glpi_db_host: "${aws_db_instance.glpi_db.address}"
 glpi_db_port: "${aws_db_instance.glpi_db.port}"
 glpi_db_name: "${var.glpi_db_name}"
 glpi_db_user: "${var.glpi_db_username}"
