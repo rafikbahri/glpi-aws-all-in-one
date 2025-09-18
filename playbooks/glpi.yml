@@ -2,6 +2,5 @@
 - name: Setup GLPI
   hosts: glpi
   gather_facts: false
-  become: true
   roles:
-    - role: /Users/rbahri/Desktop/all/Perso/projects/ansible-role-glpi
+    - role: rafikbahri.glpi

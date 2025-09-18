@@ -86,7 +86,7 @@ variable "alb_subnet_2_cidr" {
 variable "glpi_db_name" {
   type        = string
   default     = "glpi"
-  description = "Username for the GLPI database"
+  description = "Database name for the GLPI"
 }
 
 variable "glpi_db_username" {

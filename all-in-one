@@ -2,9 +2,9 @@
 
 set -euo pipefail
 
-jobs/requirements
+jobs/plan
+jobs/deploy
 
-jobs/plan "$@"
-jobs/deploy "$@"
+jobs/requirements --force
 
-jobs/install "$@"
+jobs/install
