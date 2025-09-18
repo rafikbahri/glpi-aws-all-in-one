@@ -1,0 +1,10 @@
+#!/bin/zsh
+
+set -euo pipefail
+
+jobs/plan
+jobs/deploy
+
+jobs/requirements --force
+
+jobs/install

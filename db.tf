@@ -51,17 +51,17 @@ resource "aws_db_instance" "glpi_db" {
   engine                 = "mysql"
   engine_version         = "8.0"
   instance_class         = "db.t3.medium"
-  identifier             = "glpi-db"
-  db_name                = "glpi"
+  identifier             = var.glpi_db_identifier
+  db_name                = var.glpi_db_name
   username               = var.glpi_db_username
   password               = var.glpi_db_password
   parameter_group_name   = "default.mysql8.0"
   db_subnet_group_name   = aws_db_subnet_group.glpi_db_subnet_group.name
   vpc_security_group_ids = [aws_security_group.glpi_rds_sg.id]
-  multi_az               = true
+  multi_az               = var.glpi_db_multi_az
   skip_final_snapshot    = true
 
   tags = {
-    Name = "glpi-db"
+    Name = var.glpi_db_identifier
   }
 }

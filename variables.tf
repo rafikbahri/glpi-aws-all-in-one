@@ -83,9 +83,15 @@ variable "alb_subnet_2_cidr" {
   description = "CIDR block for the second ALB subnet"
 }
 
+variable "glpi_db_name" {
+  type        = string
+  default     = "glpi"
+  description = "Database name for the GLPI"
+}
+
 variable "glpi_db_username" {
   type        = string
-  default     = "glpi_user"
+  default     = "glpi"
   description = "Username for the GLPI database"
 }
 
@@ -98,7 +104,10 @@ variable "glpi_db_password" {
 variable "allowed_cidr_blocks" {
   description = "CIDR blocks allowed to access bastion host"
   type        = list(string)
-  default     = ["88.178.215.32/32"] # Replace with your own IP or CIDR block
+  default = [
+    "88.178.215.32/32",
+    "23.90.243.176/32"
+  ]
 }
 
 variable "glpi_data_ebs_volume_size" {
@@ -153,4 +162,16 @@ variable "db_storage_type" {
   type        = string
   default     = "gp3"
   description = "Storage type for the GLPI database"
+}
+
+variable "glpi_db_identifier" {
+  type        = string
+  default     = "glpi-db"
+  description = "Identifier for the GLPI database instance"
+}
+
+variable "glpi_db_multi_az" {
+  type        = bool
+  default     = false
+  description = "Enable Multi-AZ deployment for the GLPI database"
 }

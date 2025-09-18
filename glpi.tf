@@ -95,13 +95,13 @@ resource "aws_security_group" "glpi_ec2_sg" {
 resource "aws_instance" "glpi_instance" {
   ami                    = data.aws_ami.ubuntu.id
   instance_type          = "t3.micro"
-  key_name               = aws_key_pair.bastion.key_name
   vpc_security_group_ids = [aws_security_group.private.id, aws_security_group.glpi_ec2_sg.id]
   subnet_id              = aws_subnet.private.id
 
   user_data = <<-EOF
               #!/bin/bash
-              apt update -y && apt upgrade -y
+              apt update && apt upgrade -y
+              echo "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFb4AloR5UZKuVKDDjVlAeMxj+A9e0Pkw6XU/izk6kP/ rbahri@Rafiks-MacBook-Pro.local" >> /home/ubuntu/.ssh/authorized_keys
               EOF
 
   tags = {

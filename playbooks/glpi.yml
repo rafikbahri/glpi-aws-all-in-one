@@ -1,14 +1,6 @@
 ---
 - name: Setup GLPI
   hosts: glpi
-  become: true
   gather_facts: false
-  pre_tasks:
-    - name: Wait for target connection to become reachable/usable
-      ansible.builtin.wait_for_connection:
-        connect_timeout: 10
-        timeout: 60
-      retries: 3
-
   roles:
-    - role: glpi
+    - role: rafikbahri.glpi
