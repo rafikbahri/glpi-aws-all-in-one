@@ -7,7 +7,7 @@ Host bastion001
     ForwardAgent yes
     ServerAliveInterval 60
     ServerAliveCountMax 3
-    StrictHostKeyChecking no
+    StrictHostKeyChecking accept-new
 
 Host glpi001
     HostName ${glpi_private_1}
@@ -16,4 +16,4 @@ Host glpi001
     ProxyJump bastion001
     ServerAliveInterval 60
     ServerAliveCountMax 3
-    StrictHostKeyChecking no
+    StrictHostKeyChecking accept-new

@@ -163,3 +163,15 @@ variable "db_storage_type" {
   default     = "gp3"
   description = "Storage type for the GLPI database"
 }
+
+variable "glpi_db_identifier" {
+  type        = string
+  default     = "glpi-db"
+  description = "Identifier for the GLPI database instance"
+}
+
+variable "glpi_db_multi_az" {
+  type        = bool
+  default     = false
+  description = "Enable Multi-AZ deployment for the GLPI database"
+}
