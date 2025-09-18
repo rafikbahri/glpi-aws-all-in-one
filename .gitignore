@@ -26,6 +26,8 @@ inventory/group_vars/dev/hosts.yml
 inventory/group_vars/staging/hosts.yml
 inventory/group_vars/prod/hosts.yml
 inventory/group_vars/glpi/config.yml
+inventory/group_vars/glpi/db.yml
+inventory/group_vars/glpi/domain.yml
 
 inventory/dev
 inventory/staging

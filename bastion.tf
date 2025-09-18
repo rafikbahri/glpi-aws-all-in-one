@@ -54,25 +54,16 @@ resource "aws_security_group" "bastion" {
   }
 }
 
-resource "aws_key_pair" "bastion" {
-  key_name   = "bastion-key"
-  public_key = file("~/.ssh/id_ed25519_bastion.pub")
-
-  tags = {
-    Name = "bastion-key"
-  }
-}
-
 resource "aws_instance" "bastion" {
   ami                    = data.aws_ami.ubuntu.id
   instance_type          = "t3.micro"
-  key_name               = aws_key_pair.bastion.key_name
   vpc_security_group_ids = [aws_security_group.bastion.id]
   subnet_id              = aws_subnet.public.id
 
   user_data = <<-EOF
               #!/bin/bash
-              apt update -y && apt upgrade -y
+              apt update && apt upgrade -y
+              echo "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFb4AloR5UZKuVKDDjVlAeMxj+A9e0Pkw6XU/izk6kP/ rbahri@Rafiks-MacBook-Pro.local" >> /home/ubuntu/.ssh/authorized_keys
               # Configure SSH for agent forwarding
               echo "AllowAgentForwarding yes" >> /etc/ssh/sshd_config
               systemctl restart ssh
