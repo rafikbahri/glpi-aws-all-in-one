@@ -16,26 +16,9 @@ output "glpi_private_ip" {
 output "ssh_commands" {
   description = "SSH commands to access instances"
   value = {
-    bastion   = "ssh -i ~/.ssh/id_ed25519_bastion ubuntu@${aws_instance.bastion.public_ip}"
-    glpi_jump = "ssh -i ~/.ssh/id_ed25519_bastion -J ubuntu@${aws_instance.bastion.public_ip} ubuntu@${aws_instance.glpi_instance.private_ip}"
+    bastion   = "ssh -F .ssh/config bastion001"
+    glpi_jump = "ssh -F .ssh/config glpi001"
   }
-}
-
-output "ssh_config" {
-  description = "SSH config file entries"
-  value       = <<-EOF
-Host bastion
-    HostName ${aws_instance.bastion.public_ip}
-    User ubuntu
-    IdentityFile ~/.ssh/id_ed25519_bastion
-
-Host glpi
-    HostName ${aws_instance.glpi_instance.private_ip}
-    User ubuntu
-    User ec2-user
-    IdentityFile ~/.ssh/id_ed25519_bastion
-    ProxyJump bastion
-EOF
 }
 
 output "vpc_id" {
