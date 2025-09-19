@@ -1,0 +1,10 @@
+#!/bin/sh
+
+set -euo pipefail
+
+for test_playbook in playbooks/tests/*.yml; do
+  echo "RUNNING [$test_playbook]"
+  ansible-playbook -i "${ANSIBLE_INVENTORY:-inventory/dev}" "$test_playbook" "$@"
+  echo
+  echo "----------------------------------------"
+done

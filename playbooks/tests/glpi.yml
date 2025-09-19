@@ -1,0 +1,44 @@
+---
+- name: Test GLPI installation
+  hosts: glpi
+  gather_facts: false
+  tasks:
+    - name: Get GLPI directory metadata
+      ansible.builtin.stat:
+        path: /var/www/html/glpi
+      register: glpi_dir
+
+    - name: Assert GLPI directory exists
+      ansible.builtin.assert:
+        that:
+          - glpi_dir.stat.exists
+          - glpi_dir.stat.isdir
+
+    - name: Check GLPI database integrity
+      become: true
+      ansible.builtin.command: |
+        su www-data -s /bin/bash -c "bin/console db:check --quiet"
+      args:
+        chdir: /var/www/html/glpi
+      register: _glpi_install_check
+      failed_when: false
+      changed_when: false
+
+    - name: Assert GLPI database integrity
+      ansible.builtin.assert:
+        that:
+          - _glpi_install_check.rc == 0
+
+    - name: Check GLPI liveness
+      ansible.builtin.uri:
+        url: "{{ glpi_url }}"
+        return_content: true
+        status_code: 200
+        validate_certs: false
+      register: _glpi_post_install_check
+
+    - name: Assert GLPI liveness
+      ansible.builtin.assert:
+        that:
+          - "'Login' in _glpi_post_install_check.content"
+          - _glpi_post_install_check.status == 200

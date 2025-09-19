@@ -40,6 +40,7 @@ resource "local_file" "glpi_domain_config" {
 # Terraform managed
 ---
 glpi_domain: "${aws_lb.glpi_alb.dns_name}"
+glpi_url: "https://${aws_lb.glpi_alb.dns_name}"
 EOT
 }
 
