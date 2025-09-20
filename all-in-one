@@ -8,3 +8,4 @@ jobs/deploy
 jobs/requirements --force
 
 jobs/install
+jobs/test
