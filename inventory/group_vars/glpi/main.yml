@@ -1,5 +1,5 @@
 ---
-glpi_version: "10.0.19"
+glpi_version: "10.0.20"
 glpi_timezone: "Europe/Paris"
 glpi_upload_max_filesize: "20M"
 glpi_post_max_size: "20M"
