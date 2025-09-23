@@ -3,4 +3,4 @@
 source $(dirname $0)/.terraform.inc
 
 terraform init $@
-terraform plan -out=tfplan $@
+terraform plan -detailed-exitcode -out=plan.tfplan $@
