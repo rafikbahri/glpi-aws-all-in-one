@@ -22,6 +22,7 @@ The system uses a layered security model with separate security groups for each 
 ## Environment Management
 
 The project supports multiple environments through tfvars files:
+
 - `envs/dev.tfvars` - Development environment (single instance, smaller volumes)
 - `envs/staging.tfvars` - Staging environment  
 - `envs/prod.tfvars` - Production environment (larger volumes, multi-AZ RDS)
@@ -31,6 +32,7 @@ Set the environment using: `export AWS_INFRA_PLATFORM=dev|staging|prod` (default
 ## Development Commands
 
 ### Infrastructure Management
+
 ```bash
 # Plan infrastructure changes
 ./jobs/plan
@@ -43,6 +45,7 @@ Set the environment using: `export AWS_INFRA_PLATFORM=dev|staging|prod` (default
 ```
 
 ### Application Deployment
+
 ```bash
 # Install Ansible requirements
 ./jobs/requirements
@@ -55,6 +58,7 @@ Set the environment using: `export AWS_INFRA_PLATFORM=dev|staging|prod` (default
 ```
 
 ### Environment Setup
+
 ```bash
 # Set environment (dev/staging/prod)
 export AWS_INFRA_PLATFORM=dev
