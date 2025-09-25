@@ -40,17 +40,17 @@ resource "aws_ebs_volume" "glpi_logs" {
 resource "aws_volume_attachment" "glpi_config_attachment" {
   device_name = "/dev/sdf"
   volume_id   = aws_ebs_volume.glpi_config.id
-  instance_id = aws_instance.glpi_instance.id
+  instance_id = module.glpi.glpi_instance_id
 }
 
 resource "aws_volume_attachment" "glpi_data_attachment" {
   device_name = "/dev/sdg"
   volume_id   = aws_ebs_volume.glpi_data.id
-  instance_id = aws_instance.glpi_instance.id
+  instance_id = module.glpi.glpi_instance_id
 }
 
 resource "aws_volume_attachment" "glpi_logs_attachment" {
   device_name = "/dev/sdh"
   volume_id   = aws_ebs_volume.glpi_logs.id
-  instance_id = aws_instance.glpi_instance.id
+  instance_id = module.glpi.glpi_instance_id
 }

@@ -11,7 +11,7 @@ glpi
 ${module.bastion.bastion_instance_tags.Name}
 
 [glpi]
-${aws_instance.glpi_instance.tags.Name}
+${module.glpi.glpi_instance_tags.Name}
 EOT
 }
 
@@ -26,10 +26,10 @@ etc_hosts:
     names:
       - ${module.bastion.bastion_instance_tags.Name}
       - ${module.bastion.bastion_instance_tags.Name}.${var.platform}
-  - ip: ${aws_instance.glpi_instance.private_ip}
+  - ip: ${module.glpi.glpi_private_ip}
     names:
-      - ${aws_instance.glpi_instance.tags.Name}
-      - ${aws_instance.glpi_instance.tags.Name}.${var.platform}
+      - ${module.glpi.glpi_instance_tags.Name}
+      - ${module.glpi.glpi_instance_tags.Name}.${var.platform}
 EOT
 }
 

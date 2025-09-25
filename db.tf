@@ -36,7 +36,7 @@ resource "aws_security_group" "glpi_rds_sg" {
     from_port       = 3306
     to_port         = 3306
     protocol        = "tcp"
-    security_groups = [aws_security_group.glpi_ec2_sg.id]
+    security_groups = [module.glpi.glpi_ec2_security_group_id]
   }
 
   tags = {
