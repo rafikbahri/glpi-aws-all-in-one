@@ -32,3 +32,9 @@ variable "instance_type" {
   description = "Instance type for the bastion host."
   type        = string
 }
+
+variable "tags" {
+  description = "A map of tags to assign to the resources."
+  type        = map(string)
+  default     = {}
+}

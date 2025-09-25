@@ -8,7 +8,7 @@ bastions
 glpi
 
 [bastions]
-${aws_instance.bastion.tags.Name}
+${module.bastion.bastion_instance_tags.Name}
 
 [glpi]
 ${aws_instance.glpi_instance.tags.Name}
@@ -22,10 +22,10 @@ resource "local_file" "etchosts" {
 # Terraform managed
 ---
 etc_hosts:
-  - ip: ${aws_instance.bastion.private_ip}
+  - ip: ${module.bastion.bastion_private_ip}
     names:
-      - ${aws_instance.bastion.tags.Name}
-      - ${aws_instance.bastion.tags.Name}.${var.platform}
+      - ${module.bastion.bastion_instance_tags.Name}
+      - ${module.bastion.bastion_instance_tags.Name}.${var.platform}
   - ip: ${aws_instance.glpi_instance.private_ip}
     names:
       - ${aws_instance.glpi_instance.tags.Name}

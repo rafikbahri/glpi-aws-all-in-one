@@ -1,11 +1,11 @@
 output "bastion_public_ip" {
   description = "Public IP of bastion host"
-  value       = aws_instance.bastion.public_ip
+  value       = module.bastion.bastion_public_ip
 }
 
 output "bastion_public_dns" {
   description = "Public DNS of bastion host"
-  value       = aws_instance.bastion.public_dns
+  value       = module.bastion.bastion_public_dns
 }
 
 output "glpi_private_ip" {
@@ -28,7 +28,7 @@ output "vpc_id" {
 
 output "public_subnet_id" {
   description = "ID of the public subnet"
-  value       = aws_subnet.public.id
+  value       = module.bastion.bastion_public_subnet_id
 }
 
 output "private_subnet_id" {
