@@ -43,7 +43,7 @@ output "ami_id" {
 
 output "alb_dns_name" {
   description = "The DNS name of the load balancer"
-  value       = aws_lb.glpi_alb.dns_name
+  value       = module.alb.alb_dns_name
 }
 
 output "glpi_db_address" {

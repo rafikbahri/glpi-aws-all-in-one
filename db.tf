@@ -1,5 +1,6 @@
 module "mysql" {
   source                        = "./infra/modules/mysql"
+
   vpc_id                        = aws_vpc.main.id
   availability_zones            = [data.aws_availability_zones.available.names[0], data.aws_availability_zones.available.names[1]]
   glpi_ec2_security_group_id    = module.glpi.glpi_ec2_security_group_id
