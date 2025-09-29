@@ -8,10 +8,10 @@ bastions
 glpi
 
 [bastions]
-${aws_instance.bastion.tags.Name}
+${module.bastion.bastion_instance_tags.Name}
 
 [glpi]
-${aws_instance.glpi_instance.tags.Name}
+${module.glpi.glpi_instance_tags.Name}
 EOT
 }
 
@@ -22,14 +22,14 @@ resource "local_file" "etchosts" {
 # Terraform managed
 ---
 etc_hosts:
-  - ip: ${aws_instance.bastion.private_ip}
+  - ip: ${module.bastion.bastion_private_ip}
     names:
-      - ${aws_instance.bastion.tags.Name}
-      - ${aws_instance.bastion.tags.Name}.${var.platform}
-  - ip: ${aws_instance.glpi_instance.private_ip}
+      - ${module.bastion.bastion_instance_tags.Name}
+      - ${module.bastion.bastion_instance_tags.Name}.${var.platform}
+  - ip: ${module.glpi.glpi_private_ip}
     names:
-      - ${aws_instance.glpi_instance.tags.Name}
-      - ${aws_instance.glpi_instance.tags.Name}.${var.platform}
+      - ${module.glpi.glpi_instance_tags.Name}
+      - ${module.glpi.glpi_instance_tags.Name}.${var.platform}
 EOT
 }
 
@@ -39,8 +39,8 @@ resource "local_file" "glpi_domain_config" {
   content         = <<EOT
 # Terraform managed
 ---
-glpi_domain: "${aws_lb.glpi_alb.dns_name}"
-glpi_url: "https://${aws_lb.glpi_alb.dns_name}"
+glpi_domain: "${module.alb.alb_dns_name}"
+glpi_url: "https://${module.alb.alb_dns_name}"
 EOT
 }
 
@@ -50,10 +50,10 @@ resource "local_file" "glpi_db_config" {
   content         = <<EOT
 # Terraform managed
 ---
-glpi_db_host: "${aws_db_instance.glpi_db.address}"
-glpi_db_port: "${aws_db_instance.glpi_db.port}"
-glpi_db_name: "${var.glpi_db_name}"
-glpi_db_user: "${var.glpi_db_username}"
+glpi_db_host: "${module.mysql.rds_endpoint}"
+glpi_db_port: "${module.mysql.rds_port}"
+glpi_db_name: "${module.mysql.db_name}"
+glpi_db_user: "${module.mysql.username}"
 glpi_db_password: "${var.glpi_db_password}"
 EOT
 }

@@ -1,67 +1,17 @@
-resource "aws_subnet" "glpi_db_private_subnet_1" {
-  vpc_id            = aws_vpc.main.id
-  cidr_block        = var.db_subnet_1_cidr
-  availability_zone = data.aws_availability_zones.available.names[0]
+module "mysql" {
+  source                        = "./infra/modules/mysql"
 
-  tags = {
-    Name = "glpi-db-private-subnet-1"
-  }
-}
-
-resource "aws_subnet" "glpi_db_private_subnet_2" {
-  vpc_id            = aws_vpc.main.id
-  cidr_block        = var.db_subnet_2_cidr
-  availability_zone = data.aws_availability_zones.available.names[1]
-
-  tags = {
-    Name = "glpi-db-private-subnet-2"
-  }
-}
-
-resource "aws_db_subnet_group" "glpi_db_subnet_group" {
-  name       = "glpi-db-subnet-group"
-  subnet_ids = [aws_subnet.glpi_db_private_subnet_1.id, aws_subnet.glpi_db_private_subnet_2.id]
-
-  tags = {
-    Name = "GLPI DB Subnet Group"
-  }
-}
-
-resource "aws_security_group" "glpi_rds_sg" {
-  name        = "glpi-rds-sg"
-  description = "Security group for GLPI RDS instance"
-  vpc_id      = aws_vpc.main.id
-
-  ingress {
-    from_port       = 3306
-    to_port         = 3306
-    protocol        = "tcp"
-    security_groups = [aws_security_group.glpi_ec2_sg.id]
-  }
-
-  tags = {
-    Name = "glpi-rds-sg"
-  }
-}
-
-resource "aws_db_instance" "glpi_db" {
-  allocated_storage      = var.db_allocated_storage_size
-  max_allocated_storage  = var.db_storage_auto_scaling_max_size
-  storage_type           = var.db_storage_type
-  engine                 = "mysql"
-  engine_version         = "8.0"
-  instance_class         = "db.t3.medium"
-  identifier             = var.glpi_db_identifier
-  db_name                = var.glpi_db_name
-  username               = var.glpi_db_username
-  password               = var.glpi_db_password
-  parameter_group_name   = "default.mysql8.0"
-  db_subnet_group_name   = aws_db_subnet_group.glpi_db_subnet_group.name
-  vpc_security_group_ids = [aws_security_group.glpi_rds_sg.id]
-  multi_az               = var.glpi_db_multi_az
-  skip_final_snapshot    = true
-
-  tags = {
-    Name = var.glpi_db_identifier
-  }
+  vpc_id                        = module.network.vpc_id
+  availability_zones            = [data.aws_availability_zones.available.names[0], data.aws_availability_zones.available.names[1]]
+  glpi_ec2_security_group_id    = module.glpi.glpi_ec2_security_group_id
+  db_subnet_1_cidr              = var.db_subnet_1_cidr
+  db_subnet_2_cidr              = var.db_subnet_2_cidr
+  allocated_storage_size        = var.db_allocated_storage_size
+  storage_auto_scaling_max_size = var.db_storage_auto_scaling_max_size
+  storage_type                  = var.db_storage_type
+  identifier                    = var.glpi_db_identifier
+  db_name                       = var.glpi_db_name
+  username                      = var.glpi_db_username
+  password                      = var.glpi_db_password
+  multi_az                      = var.glpi_db_multi_az
 }
