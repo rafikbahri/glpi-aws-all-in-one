@@ -50,10 +50,10 @@ resource "local_file" "glpi_db_config" {
   content         = <<EOT
 # Terraform managed
 ---
-glpi_db_host: "${aws_db_instance.glpi_db.address}"
-glpi_db_port: "${aws_db_instance.glpi_db.port}"
-glpi_db_name: "${var.glpi_db_name}"
-glpi_db_user: "${var.glpi_db_username}"
+glpi_db_host: "${module.mysql.rds_endpoint}"
+glpi_db_port: "${module.mysql.rds_port}"
+glpi_db_name: "${module.mysql.db_name}"
+glpi_db_user: "${module.mysql.username}"
 glpi_db_password: "${var.glpi_db_password}"
 EOT
 }

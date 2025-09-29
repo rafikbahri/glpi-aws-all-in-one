@@ -48,5 +48,5 @@ output "alb_dns_name" {
 
 output "glpi_db_address" {
   description = "Hostname of the GLPI RDS database"
-  value       = aws_db_instance.glpi_db.address
+  value       = module.mysql.rds_endpoint
 }
