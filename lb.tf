@@ -8,5 +8,4 @@ module "alb" {
   glpi_ec2_security_group_id = module.glpi.glpi_ec2_security_group_id
   glpi_ec2_instance_id = module.glpi.glpi_instance_id
   availability_zones = data.aws_availability_zones.available.names
-
 }
