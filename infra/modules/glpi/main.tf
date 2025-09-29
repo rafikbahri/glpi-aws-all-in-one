@@ -80,7 +80,7 @@ resource "aws_instance" "glpi_instance" {
   user_data = <<-EOF
               #!/bin/bash
               apt update && apt upgrade -y
-              echo "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFb4AloR5UZKuVKDDjVlAeMxj+A9e0Pkw6XU/izk6kP/ rbahri@Rafiks-MacBook-Pro.local" >> /home/ubuntu/.ssh/authorized_keys
+              echo "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAX9ivVQE6SkCDD43QPd4ek3GUcKxfbhlOCbUOaP9NGk rafik-bahri-personal" >> /home/ubuntu/.ssh/authorized_keys
               EOF
 
   tags = {
