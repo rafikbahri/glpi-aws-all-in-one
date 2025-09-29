@@ -23,7 +23,7 @@ output "ssh_commands" {
 
 output "vpc_id" {
   description = "ID of the VPC"
-  value       = aws_vpc.main.id
+  value       = module.network.vpc_id
 }
 
 output "public_subnet_id" {

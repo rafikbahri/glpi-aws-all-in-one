@@ -1,7 +1,7 @@
 module "alb" {
   source = "./infra/modules/alb"
 
-  vpc_id = aws_vpc.main.id
+  vpc_id = module.network.vpc_id
   alb_subnet_1_cidr = var.alb_subnet_1_cidr
   alb_subnet_2_cidr = var.alb_subnet_2_cidr
   bastion_public_route_table_id = module.bastion.bastion_public_route_table_id
